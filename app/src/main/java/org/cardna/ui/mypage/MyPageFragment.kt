@@ -23,6 +23,7 @@ import org.cardna.util.shortToast
 import kotlin.math.roundToInt
 import android.view.MotionEvent
 import android.view.View.OnTouchListener
+import android.widget.Toast
 
 
 class MyPageFragment :
@@ -99,6 +100,7 @@ class MyPageFragment :
                                 myPageRecyclerViewAdapter(list)
                             }
                         } catch (e: Exception) {
+                            Toast.makeText(requireContext(), "존재하지 않는 친구입니다.",Toast.LENGTH_SHORT).show()
                             Log.d("실패", e.message.toString())
                         }
                     }
