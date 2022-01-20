@@ -17,7 +17,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -174,7 +176,7 @@ class CardCreateActivity :
                 }
             }
             else{ // 이미지 선택
-                lifecycleScope.launch(Dispatchers.IO) {
+                CoroutineScope(Dispatchers.IO).launch {
                     runCatching { cardService.postCreateCardMe(body, makeUriToFile()) }
                         .onSuccess { Log.d("카드나 작성 성공", it.message) }
                         .onFailure { Log.d("카드나 작성 실패", it.message!!)

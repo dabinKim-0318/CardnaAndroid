@@ -53,7 +53,6 @@ class DetailActivity :
             tvDetailcardAbout.text = cardInfo.content
             tvDetailcardUserName.text = "From. ${cardInfo.relation}"
             tvDetailcardDate.text = cardInfo.createdAt
-            tvDetailcardUserName.text = cardInfo.name
             Glide
                 .with(this@DetailActivity)
                 .load(cardInfo.cardImg)

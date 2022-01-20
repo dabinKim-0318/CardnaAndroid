@@ -131,20 +131,19 @@ class RepresentCardEditBottomDialogFragment(
                     cardYouAdapter.setLastRemovedIndex(Int.MAX_VALUE)
                     binding.tvRepresentcardeditCardListCount.text =
                         "${list.size}/${7 - cardListSize}"
-                    cardMeAdapter.notifyDataSetChanged()
                     cardYouAdapter.notifyDataSetChanged()
                     return@setItemClickListener list.lastIndex
                 } else {
-
+                    Log.d("size",list.size.toString())
+                    Log.d("position",position.toString())
                     list.removeAt(position)
                     cardMeAdapter.setLastRemovedIndex(position)
                     cardYouAdapter.setLastRemovedIndex(position)
                     binding.tvRepresentcardeditCardListCount.text =
                         "${list.size}/${7 - cardListSize}"
 
-                    cardMeAdapter.notifyDataSetChanged()
                     cardYouAdapter.notifyDataSetChanged()
-
+                    cardMeAdapter.notifyDataSetChanged()
                     return@setItemClickListener -1
                 }
             }
@@ -159,6 +158,8 @@ class RepresentCardEditBottomDialogFragment(
                     cardYouAdapter.notifyDataSetChanged()
                     return@setItemClickListener list.lastIndex
                 } else {
+                    Log.d("size",list.size.toString())
+                    Log.d("position",position.toString())
                     list.removeAt(position)
                     cardMeAdapter.setLastRemovedIndex(position)
                     cardYouAdapter.setLastRemovedIndex(position)
@@ -225,7 +226,6 @@ class RepresentCardEditBottomDialogFragment(
             }
             val totalData = RequestMainCardEditData(representCard)
             representPutData(totalData)
-            dialog?.dismiss()
         }
     }
 
@@ -236,5 +236,6 @@ class RepresentCardEditBottomDialogFragment(
         data.cards.forEach {
             Log.d("이미지 아이디", it.toString())
         }
+        dialog?.dismiss()
     }
 }

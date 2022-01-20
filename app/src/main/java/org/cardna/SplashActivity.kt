@@ -1,10 +1,8 @@
 package org.cardna
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import androidx.viewpager2.widget.ViewPager2
 import org.cardna.base.baseutil.BaseViewUtil
 import org.cardna.databinding.ActivitySplashBinding
 

@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
@@ -174,7 +175,7 @@ class OtherCardWriteActivity
                 }
             }
             else{ // 이미지 선택 시
-                lifecycleScope.launch(Dispatchers.IO) {
+                CoroutineScope(Dispatchers.IO).launch {
                     runCatching { ApiService.cardService.postCreateCardYou(userId, body, makeUriToFile()) }
                         .onSuccess { Log.d("카드나 작성 성공", it.message) }
                         .onFailure { Log.d("카드나 작성 실패", it.message!!)
