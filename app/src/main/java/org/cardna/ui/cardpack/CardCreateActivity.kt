@@ -41,9 +41,9 @@ class CardCreateActivity :
     private var uri: Uri? = null // 이를 multipart로 변환해서 서버에 img로 보내줄 것임
     private var ifChooseImg: Boolean = false // 갤러리 이미지를 선택했는지 확인해주는 변수 => 나중에 버튼 enable 할때 사용
 
-    private var status:Int = 0
-    private var success:Boolean ? = null
-    private var message:String ? = null
+    private var status: Int = 0
+    private var success: Boolean? = null
+    private var message: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -168,19 +168,20 @@ class CardCreateActivity :
                 symbolId // 갤러리 이미지를 선택했다면 dialog 완료 버튼을 누르지 않았을 테니까 null 값일 것임
             ).toRequestBody()
 
-            if(uri == null){ // 심볼 선택
+            if (uri == null) { // 심볼 선택
                 lifecycleScope.launch(Dispatchers.IO) {
                     runCatching { cardService.postCreateCardMe(body, null) }
                         .onSuccess { Log.d("카드나 작성 성공", it.message) }
-                        .onFailure { Log.d("카드나 작성 실패", it.message!!)}
+                        .onFailure { Log.d("카드나 작성 실패", it.message!!) }
                 }
-            }
-            else{ // 이미지 선택
+            } else { // 이미지 선택
                 CoroutineScope(Dispatchers.IO).launch {
                     runCatching { cardService.postCreateCardMe(body, makeUriToFile()) }
                         .onSuccess { Log.d("카드나 작성 성공", it.message) }
-                        .onFailure { Log.d("카드나 작성 실패", it.message!!)
-                            it.printStackTrace() }
+                        .onFailure {
+                            Log.d("카드나 작성 실패", it.message!!)
+                            it.printStackTrace()
+                        }
                 }
             }
 
@@ -202,7 +203,6 @@ class CardCreateActivity :
             intent.putExtra("symbolId", symbolId) // 심볼 - 2, 갤러리 - null
             intent.putExtra("cardImg", uri.toString()) // 심볼 - null, 갤러리 - adflkadlfaf
             intent.putExtra("cardTitle", binding.etCardcreateKeyword.text.toString())
-
             startActivity(intent)
         }
     }
@@ -217,13 +217,13 @@ class CardCreateActivity :
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap!!.compress(Bitmap.CompressFormat.PNG, 20, byteArrayOutputStream)
         val fileBody = RequestBody.create(
-            MediaType.parse("image/png"),
+            MediaType.parse("image/jpg"),
             byteArrayOutputStream.toByteArray()
         )
 
         val part = MultipartBody.Part.createFormData(
             "image",
-            File("${uri.toString()}.png").name,
+            File("${uri.toString()}").name,
             fileBody
         )
 

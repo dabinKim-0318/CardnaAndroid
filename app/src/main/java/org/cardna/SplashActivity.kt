@@ -3,6 +3,7 @@ package org.cardna
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import org.cardna.base.baseutil.BaseViewUtil
 import org.cardna.databinding.ActivitySplashBinding
 
@@ -17,9 +18,9 @@ class SplashActivity : BaseViewUtil.BaseAppCompatActivity<ActivitySplashBinding>
     }
 
     private fun initSplash() {
-        val handler = Handler()
-        handler.postDelayed({ var intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+        Handler(Looper.getMainLooper()).postDelayed({
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }, SPLASH_VIEW_TIME)
     }
 
